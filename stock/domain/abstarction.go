@@ -9,6 +9,5 @@ type Service interface {
 type Repository interface {
 	Save(domain Stock) (id int, err error)
 	Delete(id int) (err error)
-	GetByName(name string) (domain Stock, err error)
 	GetByID(id int) (domain Stock, err error)
 }

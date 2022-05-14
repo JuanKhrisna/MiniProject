@@ -1,32 +1,32 @@
 package service
 
 import (
+	"miniproject/apotik/domain"
 	errorConv "miniproject/helper/error"
-	"miniproject/stock/domain"
 )
 
-type stockService struct {
+type apotikService struct {
 	repository domain.Repository
 }
 
 // DeleteData implements domain.Service
-func (us stockService) DeleteData(id int) (err error) {
+func (us apotikService) DeleteData(id int) (err error) {
 	errResp := us.repository.Delete(id)
 	return errorConv.Conversion(errResp)
 }
 
 // InsertData implements domain.Service
-func (stockService) InsertData(domain domain.Stock) (response domain.Stock, err error) {
+func (apotikService) InsertData(domain domain.Apotik) (response domain.Apotik, err error) {
 	panic("unimplemented")
 }
 
 // UpdateData implements domain.Service
-func (stockService) UpdateData(id int) (response domain.Stock, err error) {
+func (apotikService) UpdateData(id int) (response domain.Apotik, err error) {
 	panic("unimplemented")
 }
 
-func NewStockService(repo domain.Repository) domain.Service {
-	return stockService{
+func NewApotikService(repo domain.Repository) domain.Service {
+	return apotikService{
 		repository: repo,
 	}
 }
