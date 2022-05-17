@@ -1,0 +1,13 @@
+{
+    "debug": true,
+    "server": {
+      "address": ":8080"
+    },
+    "database": {
+      "host": "localhost",
+      "port": "3307",
+      "user": "root",
+      "pass": " ",
+      "name": "pharmacy"
+    }
+  }
