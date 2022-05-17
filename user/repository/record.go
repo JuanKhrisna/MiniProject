@@ -8,6 +8,7 @@ import (
 
 type User struct {
 	gorm.Model
+	Id       int
 	Username string
 	Password string
 	Email    string
@@ -16,6 +17,7 @@ type User struct {
 
 func toDomain(rec User) domain.User {
 	return domain.User{
+		Id:       rec.Id,
 		Username: rec.Username,
 		Password: rec.Password,
 		Email:    rec.Email,
@@ -25,6 +27,7 @@ func toDomain(rec User) domain.User {
 
 func fromDomain(rec domain.User) User {
 	return User{
+		Id:       rec.Id,
 		Username: rec.Username,
 		Password: rec.Password,
 		Email:    rec.Email,

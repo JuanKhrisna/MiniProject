@@ -36,6 +36,13 @@ func (ur userRepo) Save(domain domain.User) (id int, err error) {
 	return int(record.ID), err
 }
 
+// Update implements domain.Repository
+func (ur userRepo) Update(id int, domain domain.User) (err error) {
+	record := fromDomain(domain)
+	err = ur.DB.Where("id = ?", id).Updates(&record).Error
+	return err
+}
+
 func NewUserRepository(db gorm.DB) domain.Repository {
 	return userRepo{
 		DB: db,

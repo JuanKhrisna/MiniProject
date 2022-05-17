@@ -9,6 +9,7 @@ type Service interface {
 
 type Repository interface {
 	Save(domain User) (id int, err error)
+	Update(id int, domain User) (err error) 
 	Delete(id int) (err error)
 	GetByUsernamePassword(username, password string) (domain User, err error)
 	GetByID(id int) (domain User, err error)

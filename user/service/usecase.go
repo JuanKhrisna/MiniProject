@@ -21,7 +21,7 @@ func (us userService) DeleteData(id int) (err error) {
 }
 
 // InsertData implements domain.Service
-func (userService) InsertData(domain domain.User) (response domain.User, err error) {
+func (us userService) InsertData(domain domain.User) (response domain.User, err error) {
 	panic("unimplemented")
 }
 
