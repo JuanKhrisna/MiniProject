@@ -2,46 +2,33 @@ package config
 
 import (
 	"fmt"
-	"os"
+	"log"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
-type Config struct {
-	DBNAME    string
-	DBUSER    string
-	DBPASS    string
-	DBHOST    string
-	DBPORT    string
-	JWTSecret string
+type ConfigDB struct {
+	DB_Username string
+	DB_Password string
+	DB_Host     string
+	DB_Port     string
+	DB_Database string
 }
 
-var Conf Config
+func (config *ConfigDB) InitialDB() *gorm.DB {
+	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local",
+		config.DB_Username,
+		config.DB_Password,
+		config.DB_Host,
+		config.DB_Port,
+		config.DB_Database)
 
-func Init() {
-	Conf = Config{
-		DBNAME:    os.Getenv("DBNAME"),
-		DBUSER:    os.Getenv("DBUSER"),
-		DBPASS:    os.Getenv("DBPASS"),
-		DBHOST:    os.Getenv("DBHOST"),
-		DBPORT:    os.Getenv("DBPORT"),
-		JWTSecret: os.Getenv("JWTSECRET"),
+	DB, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	DB.Logger = logger.Default.LogMode(logger.Info)
+	if err != nil {
+		log.Fatal(err)
 	}
-	fmt.Printf("%+v", Conf)
-}
-
-func DBInit() (DB *gorm.DB) {
-	DB, _ = gorm.Open(
-		mysql.Open(
-			fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-				Conf.DBUSER,
-				Conf.DBPASS,
-				Conf.DBHOST,
-				Conf.DBPORT,
-				Conf.DBNAME,
-			),
-		),
-	)
-	return
+	return DB
 }
